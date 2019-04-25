@@ -15,7 +15,8 @@ public class QuickSort {
             for(int e: testArr) System.out.print(e + " ");
             System.out.println();
             quickSort(testArr);
-            System.out.println("AfterSort:");
+            System.out.print("AfterSort: ");
+            System.out.println(check(testArr));
             for(int e: testArr) System.out.print(e + " ");
             System.out.println();
         }
@@ -41,7 +42,7 @@ public class QuickSort {
      * 在 [lo, hi] 中寻找轴点（pivot）
      */
     private static int partition(int[] arr, int lo, int hi) {
-        swap(arr, lo, rand.nextInt(hi-lo+1));
+        swap(arr, lo, lo + rand.nextInt(hi-lo+1));
         int pivot = arr[lo];
         while (lo < hi) {
             while ((lo < hi) && pivot <= arr[hi]) {
@@ -63,5 +64,13 @@ public class QuickSort {
         int tmp = arr[a];
         arr[a] = arr[b];
         arr[b] = tmp;
+    }
+
+    private static boolean check(int[] arr) {
+        assert arr.length > 1;
+        for (int i = 1; i < arr.length; ++i) {
+            if(arr[i] < arr[i-1]) return false;
+        }
+        return true;
     }
 }
