@@ -1,7 +1,6 @@
-import java.util.Arrays;
 import java.util.Scanner;
 
-public class Knapsack01Problem {
+public class KnapsackProblem {
     public static void main(String[] args) {
         Scanner reader = new Scanner(System.in);
         int N = reader.nextInt();
@@ -22,6 +21,7 @@ public class Knapsack01Problem {
     }
 
     /**
+     * 01背包问题-1
      * 使用二维数组
      */
     private static int[][] dp1(int N, int V, int[] v, int[] w) {
@@ -40,6 +40,7 @@ public class Knapsack01Problem {
     }
 
     /**
+     * 01背包问题-1
      * 改进，事实上一维数组就可以，但在循环中要从后往前，避免覆盖之后要用的之前的值
      */
     private static int[] dp2(int N, int V, int[] v, int[] w) {
@@ -47,6 +48,24 @@ public class Knapsack01Problem {
         for (int i = 1; i <= N; ++i) {
             for (int j = V; j >= 1; --j) {
                 if (j >= v[i]) dp[j] = Math.max(dp[j], dp[j-v[i]]+w[i]);
+            }
+        }
+        return dp;
+    }
+
+    /**
+     * 完全背包问题
+     * 直接修改 dp2 函数，在循环内枚举 第i个可取的所有可能值。
+     */
+    private static int[] dp3(int N, int V, int[] v, int[] w) {
+        int[] dp = new int[V + 1];
+        for (int i = 1; i <= N; ++i) {
+            for (int j = V; j >= 1; --j) {
+                int max = j / v[i];
+
+                for (int l = 1; l <= max; ++l) {
+                    dp[j] = Math.max(dp[j], dp[j-l*v[i]]+l*w[i]);
+                }
             }
         }
         return dp;
