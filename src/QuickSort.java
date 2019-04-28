@@ -59,6 +59,22 @@ public class QuickSort {
         return lo;
     }
 
+    /**
+     * 另一种写法更简单的分区, 同上，区间为 [lo, hi]
+     */
+    private static int partition2(int[] arr, int lo, int hi) {
+        // 不变式 （ <p  m）(>=p  )i
+        int m = lo;
+        int p = arr[lo];
+        for (int i = lo; i <= hi; ++i) {
+            if (arr[i] < p) {
+                swap(arr, ++m, i);
+            }
+        }
+        swap(arr, lo, m);
+        return m;
+    }
+
     private static void swap(int[] arr, int a, int b) {
         if(a == b) return;
         int tmp = arr[a];
