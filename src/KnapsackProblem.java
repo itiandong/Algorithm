@@ -54,7 +54,7 @@ public class KnapsackProblem {
     }
 
     /**
-     * 完全背包问题
+     * 完全背包问题-1
      * 直接修改 dp2 函数，在循环内枚举 第i个可取的所有可能值。
      */
     private static int[] dp3(int N, int V, int[] v, int[] w) {
@@ -63,14 +63,15 @@ public class KnapsackProblem {
             for (int j = V; j >= 1; --j) {
                 int max = j / v[i];
 
+                // j >= l*v[i] 天然满足
                 for (int l = 1; l <= max; ++l) {
-                    dp[j] = Math.max(dp[j], dp[j-l*v[i]]+l*w[i]);
+                    if ( j - l*v[i] >= 0)
+                        dp[j] = Math.max(dp[j], dp[j-l*v[i]]+l*w[i]);
                 }
             }
         }
         return dp;
     }
-
 
 }
 
